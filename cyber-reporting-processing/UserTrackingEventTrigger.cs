@@ -23,6 +23,15 @@ public static class UserTrackingEventTrigger
         var parsedQueueItem = JsonConvert.DeserializeObject<any>(queueItem);
         var eventName = parsedQueueItem["Event"];
         var eventValue = parsedQueueItem["Value"].toAny();
+
+        string eventType = null;
+        try
+        {
+            eventType = eventTypes[eventName as string].ToString();
+        } catch (Exception)
+        {
+            Console.WriteLine($"[{DateTime.Now}] \"Parse failed\" result for event: {eventName}");
+        }
         
         var db = new DatabaseHandler();
 
@@ -32,12 +41,12 @@ public static class UserTrackingEventTrigger
             user_id = eventValue["UserId"],
             username = eventValue["Username"],
             timestamp = eventValue["UnixTimeStamp"],
-            event_type = eventTypes[eventName as string]
+            event_type = eventType
         };
 
 
         var result = await db.AddItemToDatabase(eventBody);
-        
-        Console.WriteLine(result.StatusCode);
+
+        Console.WriteLine($"[{DateTime.Now}] \"{result.StatusCode}\" result for event: {eventName} for user id: {eventValue["UserId"]}");
     }
 }
