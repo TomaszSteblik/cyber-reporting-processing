@@ -5,6 +5,7 @@
         <RootNamespace>cyber_reporting_processing</RootNamespace>
     </PropertyGroup>
     <ItemGroup>
+        <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.31.2" />
         <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.ServiceBus" Version="5.2.0" />
         <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="4.1.1" />
     </ItemGroup>
