@@ -16,7 +16,7 @@ namespace cyber_reporting_processing.Database
 
         public DatabaseHandler()
         {
-            var connStr = "AccountEndpoint=https://cyber-cosmos-db.documents.azure.com:443/;AccountKey=MzPWSxcuqo5NUU6XtJxFsCKkWWeHpgp3DB1D5UoJCWMSSis8amDItxt7KQ5V4opQoAMpVdsEboOuACDb3lGwmQ==;";
+            var connStr = Environment.GetEnvironmentVariable("CONNECTION_STRING_COSMOS");
             var cosmosClient = new CosmosClient(connStr);
             var db = cosmosClient.GetDatabase("ReportingDb");
             this._cosmosContainer = db.GetContainer("ReportingDb");
